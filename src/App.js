@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import { CardList } from './components/card-list/card-list.component';
 class App extends Component {
   constructor(){
     super();
     this.state = {
-      string: "You dont know me!"
-    };
+      monsters: [],
+      err: ""
+    }
   }
-  render() {
-    return (
+  componentDidMount(){
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then(response => response.json())
+    .then(jsrespon => this.setState({monsters: jsrespon}));
+    }
+  render(){
+    return(
       <div className="App">
-        <header className="App-header">
-          <p>
-            { this.state.string }
-          </p>
-          <button onClick={ () => this.setState({string: "Tink you know me!"}) }>Click me!</button>
-        </header>
+      <CardList>
+      {
+        this.state.monsters.map( monster => <h1 key={monster.id}>{ monster.name }</h1>)
+      }
+      </CardList>
       </div>
     );
   }
