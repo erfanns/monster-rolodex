@@ -12,14 +12,13 @@ class App extends Component {
       monsters: [],
       searchField: ""
     }
-    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount(){
     fetch("https://jsonplaceholder.typicode.com/users")
     .then(response => response.json())
     .then(jsrespon => this.setState({monsters: jsrespon}));
     }
-  handleChange(e){
+  handleChange = (e) => {
     this.setState({ searchField: e.target.value })
   }
   render(){
