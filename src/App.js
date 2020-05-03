@@ -12,12 +12,16 @@ class App extends Component {
       monsters: [],
       searchField: ""
     }
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount(){
     fetch("https://jsonplaceholder.typicode.com/users")
     .then(response => response.json())
     .then(jsrespon => this.setState({monsters: jsrespon}));
     }
+  handleChange(e){
+    this.setState({ searchField: e.target.value })
+  }
   render(){
     const { monsters , searchField } = this.state;
     const filteredmonsters = monsters.filter( monster => monster.name.toLowerCase().includes(searchField.toLowerCase()) );
@@ -25,7 +29,7 @@ class App extends Component {
       <div className="App">
       <SearchBox 
           placeholder="Serach Field ..."
-          handleChange={e=> this.setState({ searchField: e.target.value })}
+          handleChange={ this.handleChange }
       />
       <CardList monsters={filteredmonsters} />
       </div>
